@@ -155,9 +155,9 @@ class Update:
     def command(self, *, uv: str, overrides: Path | None) -> list[str]:
         """The `uv tool install` that replaces the current install; `main` reads `overrides`."""
         if self.channel == 'stable':
-            return [uv, 'tool', 'install', '--force', f'{DISTRIBUTION}=={self.target}']
+            return [uv, 'tool', 'install', '--force', '--compile-bytecode', f'{DISTRIBUTION}=={self.target}']
         assert overrides is not None, 'a main install needs the overrides file'
-        return [uv, 'tool', 'install', '--force', '--overrides', str(overrides), DISTRIBUTION]
+        return [uv, 'tool', 'install', '--force', '--compile-bytecode', '--overrides', str(overrides), DISTRIBUTION]
 
 
 def find_update(channel: UpdateChannel, current: Installed, target: str) -> Update | None:
